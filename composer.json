@@ -1,0 +1,40 @@
+{
+    "name": "smytsyk-dev/freque",
+    "description": "The library to get stats how frequently files are changed based on GIT commits information.",
+    "type": "library",
+    "keywords":          [
+        "git",
+        "history",
+        "stats"
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stas Mytsyk",
+            "email": "denielm10@gmail.com"
+        },
+        {
+            "name": "Vlad Mytsyk",
+            "email": "vmytsyk@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Freque\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Freque\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "freque"
+    ]
+}

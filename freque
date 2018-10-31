@@ -1,0 +1,44 @@
+#!/usr/bin/php
+<?php
+/*
+ * This file is part of smytsyk-dev/freque.
+ *
+ * (c) Stas Mytsyk <denielm10@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Freque\ConsoleFormatter;
+use Freque\FileChangesHistoryLoader;
+use Freque\JsonFormatter;
+use Freque\Processor;
+use Freque\Reporter;
+use Freque\Runner;
+use Freque\Utils\GitFileHistoryLoader;
+use Freque\Utils\ScandirFileScanner;
+use Freque\Utils\ShellExec;
+
+require_once __DIR__ . '/../../autoload.php';
+
+$options = getopt('', ['formatter:', 'dir:']);
+
+if (count($argv) === 1) {
+    echo 'Specify the dir at the end of command' . PHP_EOL;
+
+    exit(1);
+}
+
+$targetGitRepositoryDir = $argv[count($argv) - 1];
+
+$formatterName = $options['formatter'] ?? '';
+
+$formatter = $formatterName === 'json' ? new JsonFormatter()
+    : new ConsoleFormatter();
+
+$runner = new Runner(new Processor(new ScandirFileScanner()),
+    new FileChangesHistoryLoader(new GitFileHistoryLoader(new ShellExec())),
+    new Reporter($formatter)
+);
+
+echo $runner->run($targetGitRepositoryDir) . PHP_EOL;
