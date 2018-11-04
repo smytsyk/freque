@@ -16,6 +16,8 @@ class ScandirFileScanner implements FileScanner
         '.',
         '..',
         '.git',
+        '.idea',
+        '.DS_Store',
     ];
 
     /**
