@@ -35,14 +35,10 @@ class ScandirFileScannerTest extends TestCase
             __DIR__
         ));
 
-        $this->assertSame(
-            [
-                'fileOne.txt',
-                'fileThree.txt',
-                'nested_level/fileTwo.txt',
-            ],
-            $files
-        );
+        $this->assertContains('fileOne.txt', $files[0]);
+        $this->assertContains('fileThree.txt', $files[1]);
+        $this->assertContains('nested_level/fileTwo.txt', $files[2]);
+        $this->assertContains('nested_level/one_more_level/fileOne.txt', $files[3]);
     }
 
     /**

@@ -24,24 +24,27 @@ class Reporter
         $this->formatter = $formatter;
     }
 
-    public function generate(File ...$files): string
+    public function generate($repositoryPath, File ...$files): string
     {
-        $report = $this->buildReport(...$files);
-
+        $report = $this->buildReport($repositoryPath, ...$files);
         return $this->formatter->format(...$report);
     }
 
     /**
+     * @param string $repositoryPath
      * @param File[] ...$files
      *
      * @return Report[]
      */
-    private function buildReport(File  ...$files): array
+    private function buildReport(string $repositoryPath, File  ...$files): array
     {
         $report = [];
+
         foreach ($files as $file) {
+            $relativeFilePath = str_replace($repositoryPath, '', $file->filename());
+
             $report[] = new Report(
-                $file->filename(),
+                $relativeFilePath,
                 $file->numOfChanges(),
                 $file->lastModifiedDate()->format(DateTime::RFC1036)
             );

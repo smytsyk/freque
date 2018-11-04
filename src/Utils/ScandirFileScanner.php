@@ -27,6 +27,7 @@ class ScandirFileScanner implements FileScanner
      */
     public function loadByPath(string $path, string $localDir = ''): array
     {
+        $path = str_replace('//', '/', $path);
         if (!is_dir($path)) {
             throw new DirectoryPathNotFound(
                 sprintf('Cannot find dir: %s', $path)
@@ -45,15 +46,13 @@ class ScandirFileScanner implements FileScanner
             $fullpath = $path . '/' . $item;
 
             if (is_file($fullpath)) {
-                $files[] = $localDir . $item;
+                $files[] = $path . $localDir . $item;
 
-                continue;
+              continue;
             }
 
             if (is_dir($fullpath)) {
-                $dirArgument = empty($localDir) ? $item . '/' : '';
-
-                $files = array_merge($files, $this->loadByPath($fullpath, $dirArgument));
+                $files = array_merge($files, $this->loadByPath($fullpath, '/'));
             }
         }
 
