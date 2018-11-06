@@ -63,7 +63,7 @@ class ReporterTest extends TestCase
             $fileTwo,
         ];
 
-        $report = $this->subject->generate(...$files);
+        $report = $this->subject->generate('dummy/path', ...$files);
 
         $expected = [
             [

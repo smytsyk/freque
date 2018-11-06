@@ -51,6 +51,6 @@ class Runner
             $this->loader->loadFileHistory($repositoryPath, $file);
         }
 
-        return $this->reporter->generate(...$files);
+        return $this->reporter->generate($repositoryPath, ...$files);
     }
 }
