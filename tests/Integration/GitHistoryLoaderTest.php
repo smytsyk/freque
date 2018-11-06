@@ -52,7 +52,7 @@ Stas <stas@test.com> 1140847386
 EOD;
 
         $command = sprintf(
-            'cd %s && git log --pretty="format:%%an <%%ae> %%at" -- %s 2>/dev/null',
+            'cd %s && git log --grep=Revert --invert-grep --pretty="format:%%an <%%ae> %%at" -- %s 2>/dev/null',
             $repositoryPath,
             $filename
         );
